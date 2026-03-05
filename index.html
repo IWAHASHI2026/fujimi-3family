@@ -32,10 +32,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background:
-      linear-gradient(160deg, rgba(26,39,68,0.72) 0%, rgba(15,26,48,0.78) 60%, rgba(30,58,95,0.72) 100%),
-      url('main.jpg') center center / cover no-repeat;
-    background-attachment: scroll, scroll;
+    background: var(--navy);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +45,9 @@
     inset: 0;
     background:
       radial-gradient(ellipse 600px 400px at 20% 80%, rgba(184,150,78,0.15), transparent),
-      radial-gradient(ellipse 500px 500px at 80% 20%, rgba(30,58,95,0.4), transparent);
+      radial-gradient(ellipse 500px 500px at 80% 20%, rgba(30,58,95,0.4), transparent),
+      linear-gradient(160deg, rgba(26,39,68,0.72) 0%, rgba(15,26,48,0.78) 60%, rgba(30,58,95,0.72) 100%);
+    z-index: 1;
   }
 
   /* Decorative Mt. Fuji silhouette */
@@ -59,6 +58,7 @@
     left: 0;
     right: 0;
     height: 35vh;
+    z-index: 1;
     background:
       linear-gradient(135deg, transparent 30%, rgba(184,150,78,0.05) 50%, transparent 70%);
     clip-path: polygon(0 100%, 15% 40%, 28% 55%, 42% 15%, 58% 15%, 72% 55%, 85% 40%, 100% 100%);
@@ -569,9 +569,19 @@
   /* ===== Parallax Background ===== */
   .parallax-bg {
     position: relative;
+    overflow: hidden;
+  }
+
+  .parallax-img {
+    position: absolute;
+    top: -25%;
+    left: 0;
+    right: 0;
+    bottom: -25%;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    z-index: 0;
+    will-change: transform;
   }
 
   .parallax-bg::after {
@@ -579,16 +589,16 @@
     position: absolute;
     inset: 0;
     background: rgba(255, 255, 255, 0.87);
-    z-index: 0;
+    z-index: 1;
   }
 
   .parallax-bg.cream-overlay::after {
     background: rgba(250, 246, 239, 0.88);
   }
 
-  .parallax-bg > * {
+  .parallax-bg > *:not(.parallax-img) {
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   /* ===== Print ===== */
@@ -604,6 +614,7 @@
 
 <!-- ===== HERO / COVER ===== -->
 <div class="hero">
+  <div class="parallax-img" style="background-image: url('main.jpg')"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">企画書兼ご案内</p>
     <h1 class="hero-title">富士見会</h1>
@@ -618,7 +629,8 @@
 <div class="page">
 
   <!-- ===== ABOUT ===== -->
-  <section class="section parallax-bg" style="background-image: url('sub1.jpeg')">
+  <section class="section parallax-bg">
+    <div class="parallax-img" style="background-image: url('sub1.jpeg')"></div>
     <div class="section-number">01</div>
     <p class="section-label">About</p>
     <h2 class="section-title">趣旨</h2>
@@ -642,7 +654,8 @@
   </div>
 
   <!-- ===== VENUE ===== -->
-  <section class="section parallax-bg" style="background-image: url('sub2.jpeg')">
+  <section class="section parallax-bg">
+    <div class="parallax-img" style="background-image: url('sub2.jpeg')"></div>
     <div class="section-number">02</div>
     <p class="section-label">Venue</p>
     <h2 class="section-title">会場</h2>
@@ -668,7 +681,8 @@
   </section>
 
   <!-- ===== MEMBERS ===== -->
-  <section class="section parallax-bg" style="background-image: url('sub3.jpeg')">
+  <section class="section parallax-bg">
+    <div class="parallax-img" style="background-image: url('sub3.jpeg')"></div>
     <div class="section-number">03</div>
     <p class="section-label">Members</p>
     <h2 class="section-title">幼なじみメンバー</h2>
@@ -719,7 +733,8 @@
   </section>
 
   <!-- ===== ADDITIONAL GUESTS ===== -->
-  <section class="section guests-section parallax-bg cream-overlay" style="background-image: url('sub4.jpeg')">
+  <section class="section guests-section parallax-bg cream-overlay">
+    <div class="parallax-img" style="background-image: url('sub4.jpeg')"></div>
     <div class="section-number">04</div>
     <p class="section-label">Guests</p>
     <h2 class="section-title">ご家族のご参加（出欠未定）</h2>
@@ -804,23 +819,25 @@
 <script>
 (function() {
   var ticking = false;
+  var imgs = document.querySelectorAll('.parallax-img');
 
   function updateParallax() {
-    var scrollY = window.pageYOffset;
+    var viewH = window.innerHeight;
 
-    // Hero: gradient stays, image scrolls slowly
-    var hero = document.querySelector('.hero');
-    if (hero) {
-      hero.style.backgroundPosition = 'center center, center ' + (scrollY * 0.4) + 'px';
-    }
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      var parent = img.parentElement;
+      var rect = parent.getBoundingClientRect();
 
-    // Sections: background scrolls slower than content
-    var sections = document.querySelectorAll('.parallax-bg');
-    for (var i = 0; i < sections.length; i++) {
-      var el = sections[i];
-      var rect = el.getBoundingClientRect();
-      var offset = rect.top * 0.35;
-      el.style.backgroundPositionY = offset + 'px';
+      // progress: 0 = element just entering bottom, 1 = element leaving top
+      var progress = (viewH - rect.top) / (viewH + rect.height);
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Move within the 25% extra space on each side
+      var maxMove = rect.height * 0.25;
+      var move = (progress - 0.5) * 2 * maxMove;
+
+      img.style.transform = 'translateY(' + move + 'px)';
     }
 
     ticking = false;
