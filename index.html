@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>富士見会 — 企画書兼ご案内</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --gold: #b8964e;
+    --gold-light: #d4b97a;
+    --navy: #1a2744;
+    --navy-light: #2a3f6a;
+    --cream: #faf6ef;
+    --warm-gray: #6b6560;
+    --text: #2d2926;
+    --accent-rose: #c27c7c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #e8e2d8;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ===== Magazine Cover / Hero ===== */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--navy) 0%, #0f1a30 60%, #1e3a5f 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 20% 80%, rgba(184,150,78,0.15), transparent),
+      radial-gradient(ellipse 500px 500px at 80% 20%, rgba(30,58,95,0.4), transparent);
+  }
+
+  /* Decorative Mt. Fuji silhouette */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35vh;
+    background:
+      linear-gradient(135deg, transparent 30%, rgba(184,150,78,0.05) 50%, transparent 70%);
+    clip-path: polygon(0 100%, 15% 40%, 28% 55%, 42% 15%, 58% 15%, 72% 55%, 85% 40%, 100% 100%);
+    opacity: 0.3;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.5em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: #fff;
+    letter-spacing: 0.15em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  }
+
+  .hero-subtitle {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.2em;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-date {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    padding: 0.7rem 2.5rem;
+    color: var(--gold-light);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2rem auto;
+  }
+
+  .hero-tagline {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.15em;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ===== Page Container ===== */
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 80px rgba(0,0,0,0.08);
+  }
+
+  /* ===== Section Styles ===== */
+  .section {
+    padding: 4rem 3rem;
+    position: relative;
+  }
+
+  @media (max-width: 640px) {
+    .section { padding: 3rem 1.5rem; }
+  }
+
+  .section + .section {
+    border-top: 1px solid #eee;
+  }
+
+  .section-number {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: 4rem;
+    color: rgba(184,150,78,0.12);
+    line-height: 1;
+    margin-bottom: -0.5rem;
+  }
+
+  .section-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--navy);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .section-body {
+    font-size: 0.95rem;
+    color: var(--warm-gray);
+    font-weight: 400;
+    line-height: 2;
+  }
+
+  /* ===== About Section ===== */
+  .about-text {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.15rem;
+    line-height: 2.2;
+    color: var(--text);
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .about-text .highlight {
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  /* ===== Venue Section ===== */
+  .venue-card {
+    background: var(--cream);
+    border-radius: 2px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .venue-card { grid-template-columns: 1fr; }
+  }
+
+  .venue-info h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.1em;
+  }
+
+  .venue-info .venue-sub {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    margin-bottom: 1.2rem;
+  }
+
+  .venue-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .venue-detail .icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.6rem;
+    margin-top: 0.2rem;
+  }
+
+  .venue-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.8rem;
+    background: var(--navy);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    transition: background 0.3s;
+  }
+
+  .venue-link:hover {
+    background: var(--navy-light);
+  }
+
+  .venue-map {
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .venue-map img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .venue-capture {
+    margin-top: 2rem;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  .venue-capture img {
+    width: 100%;
+    display: block;
+  }
+
+  .venue-capture-label {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* ===== Members Grid ===== */
+  .families-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 740px) {
+    .families-grid { grid-template-columns: 1fr; }
+  }
+
+  .family-card {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 2rem 1.5rem;
+    position: relative;
+    transition: box-shadow 0.3s;
+  }
+
+  .family-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+
+  .family-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .family-card:nth-child(1)::before { background: var(--navy); }
+  .family-card:nth-child(2)::before { background: var(--gold); }
+  .family-card:nth-child(3)::before { background: var(--accent-rose); }
+
+  .family-name {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--navy);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.2rem;
+  }
+
+  .family-name span {
+    font-size: 0.75rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    color: var(--warm-gray);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  .member-group-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .member-group-label:first-of-type {
+    margin-top: 0;
+  }
+
+  .member-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .member-list li {
+    font-size: 0.88rem;
+    color: var(--text);
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .member-list li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    flex-shrink: 0;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    vertical-align: middle;
+    margin-left: 0.3rem;
+  }
+
+  .badge-confirmed {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .badge-pending {
+    background: #fff3e0;
+    color: #e65100;
+  }
+
+  .badge-role {
+    background: #f3f0ff;
+    color: #5e35b1;
+  }
+
+  /* ===== Additional Guests Section ===== */
+  .guests-section {
+    background: var(--cream);
+  }
+
+  .guests-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 740px) {
+    .guests-grid { grid-template-columns: 1fr; }
+  }
+
+  .guest-block h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .guest-block ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .guest-block ul li {
+    font-size: 0.85rem;
+    color: var(--warm-gray);
+    padding: 0.2rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .guest-block ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold-light);
+    font-size: 0.7rem;
+  }
+
+  /* ===== Schedule Strip ===== */
+  .schedule-strip {
+    background: var(--navy);
+    padding: 3rem;
+    text-align: center;
+    color: #fff;
+  }
+
+  .schedule-strip .section-label {
+    color: var(--gold-light);
+  }
+
+  .schedule-strip .section-title {
+    color: #fff;
+  }
+
+  .schedule-time {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+  }
+
+  .schedule-date {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    margin-top: 0.5rem;
+    letter-spacing: 0.2em;
+  }
+
+  .schedule-note {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== Purpose Section ===== */
+  .purpose-section {
+    text-align: center;
+    padding: 5rem 3rem;
+  }
+
+  .purpose-quote {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 2;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .purpose-quote::before,
+  .purpose-quote::after {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 4rem;
+    color: var(--gold-light);
+    opacity: 0.3;
+    position: absolute;
+    line-height: 1;
+  }
+
+  .purpose-quote::before {
+    content: '\201C';
+    top: -1.5rem;
+    left: -2rem;
+  }
+
+  .purpose-quote::after {
+    content: '\201D';
+    bottom: -2rem;
+    right: -2rem;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    background: var(--navy);
+    padding: 2.5rem 3rem;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.2rem;
+    color: var(--gold-light);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ===== Print ===== */
+  @media print {
+    body { background: #fff; }
+    .hero { min-height: 60vh; break-after: page; }
+    .page { box-shadow: none; }
+    .venue-link { border: 1px solid #333; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO / COVER ===== -->
+<div class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">企画書兼ご案内</p>
+    <h1 class="hero-title">富士見会</h1>
+    <p class="hero-subtitle">— 数十年の時を越えて —</p>
+    <div class="hero-divider"></div>
+    <div class="hero-date">2026. 7. 11 SAT</div>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">富士見ヶ丘幼稚園の幼なじみ<br>3家族の再会</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section">
+    <div class="section-number">01</div>
+    <p class="section-label">About</p>
+    <h2 class="section-title">趣旨</h2>
+    <p class="about-text">
+      かつて<span class="highlight">富士見ヶ丘幼稚園</span>に通い、<br>
+      近所で共に育った<span class="highlight">3つの家族</span>。<br><br>
+      数十年の歳月を経て、<br>
+      幼なじみとその家族、子どもたちが<br>
+      <span class="highlight">一堂に会し、親睦を深める</span>——<br>
+      それが<span class="highlight">「富士見会」</span>です。
+    </p>
+  </section>
+
+  <!-- ===== DATE & TIME ===== -->
+  <div class="schedule-strip">
+    <p class="section-label">Date &amp; Time</p>
+    <h2 class="section-title" style="margin-bottom:1.5rem;">日時</h2>
+    <div class="schedule-date">2026年 7月 11日（土）</div>
+    <div class="schedule-time">13:00〜</div>
+    <p class="schedule-note">※ 終了時刻は会場・進行により調整</p>
+  </div>
+
+  <!-- ===== VENUE ===== -->
+  <section class="section">
+    <div class="section-number">02</div>
+    <p class="section-label">Venue</p>
+    <h2 class="section-title">会場</h2>
+    <div class="venue-card">
+      <div class="venue-info">
+        <h3>きじま</h3>
+        <p class="venue-sub">戸塚本陣</p>
+        <div class="venue-detail">
+          <div class="icon">●</div>
+          <div>和の趣あふれる個室空間で<br>ゆったりとお食事をお楽しみいただけます</div>
+        </div>
+        <a href="https://kijimagroup.co.jp/store/totsuka_honjin/" target="_blank" rel="noopener" class="venue-link">公式サイトを見る →</a>
+      </div>
+      <div class="venue-map">
+        <img src="kijima_capture.png" alt="きじま 戸塚本陣 公式サイト">
+      </div>
+    </div>
+
+    <div class="venue-capture">
+      <img src="kijima_capture.png" alt="きじま 戸塚本陣 ホームページ">
+      <div class="venue-capture-label">きじま 戸塚本陣 公式ホームページより</div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBERS ===== -->
+  <section class="section">
+    <div class="section-number">03</div>
+    <p class="section-label">Members</p>
+    <h2 class="section-title">幼なじみメンバー</h2>
+    <p class="section-body" style="margin-bottom:0.5rem;">富士見ヶ丘幼稚園で共に過ごした6名。全員の出席が決定しています。</p>
+
+    <div class="families-grid">
+
+      <!-- 鈴木家 -->
+      <div class="family-card">
+        <div class="family-name">
+          鈴木家
+          <span>Suzuki Family</span>
+        </div>
+        <div class="member-group-label">幼なじみ</div>
+        <ul class="member-list">
+          <li>鈴木 直 <span class="badge badge-role">長男</span><span class="badge badge-confirmed">出席確定</span></li>
+          <li>鈴木 圭 <span class="badge badge-role">弟</span><span class="badge badge-confirmed">出席確定</span></li>
+        </ul>
+      </div>
+
+      <!-- 渡辺家 -->
+      <div class="family-card">
+        <div class="family-name">
+          渡辺家
+          <span>Watanabe Family</span>
+        </div>
+        <div class="member-group-label">幼なじみ</div>
+        <ul class="member-list">
+          <li>渡辺 哲也 <span class="badge badge-role">長男</span><span class="badge badge-confirmed">出席確定</span></li>
+          <li>渡辺 のりこ <span class="badge badge-role">妹</span><span class="badge badge-confirmed">出席確定</span></li>
+        </ul>
+      </div>
+
+      <!-- 岩橋家 -->
+      <div class="family-card">
+        <div class="family-name">
+          岩橋家
+          <span>Iwahashi Family</span>
+        </div>
+        <div class="member-group-label">幼なじみ</div>
+        <ul class="member-list">
+          <li>岩橋 成信 <span class="badge badge-role">長男</span><span class="badge badge-confirmed">出席確定</span></li>
+          <li>岩橋 幸正 <span class="badge badge-role">弟</span><span class="badge badge-confirmed">出席確定</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== ADDITIONAL GUESTS ===== -->
+  <section class="section guests-section">
+    <div class="section-number">04</div>
+    <p class="section-label">Guests</p>
+    <h2 class="section-title">ご家族のご参加（出欠未定）</h2>
+
+    <p class="section-body" style="margin-bottom: 0.5rem;">親世代・家族世代のみなさまにもお声がけしております。</p>
+
+    <div class="guests-grid">
+
+      <!-- 鈴木家 -->
+      <div class="guest-block">
+        <h4>鈴木家 <span class="badge badge-pending">未定</span></h4>
+        <p class="member-group-label" style="margin-top:0;">親世代</p>
+        <ul>
+          <li>ふじ子さん（母親）</li>
+        </ul>
+        <p class="member-group-label">直さんご家族</p>
+        <ul>
+          <li>妻</li>
+          <li>子ども 3名（大学生1・高校生2）</li>
+        </ul>
+      </div>
+
+      <!-- 渡辺家 -->
+      <div class="guest-block">
+        <h4>渡辺家 <span class="badge badge-pending">未定</span></h4>
+        <p class="member-group-label" style="margin-top:0;">親世代</p>
+        <ul>
+          <li>れい子さん（母親）</li>
+          <li>お父様</li>
+        </ul>
+        <p class="member-group-label">哲也さんご家族</p>
+        <ul>
+          <li>妻</li>
+          <li>子ども 1名</li>
+        </ul>
+      </div>
+
+      <!-- 岩橋家 -->
+      <div class="guest-block">
+        <h4>岩橋家 <span class="badge badge-pending">未定</span></h4>
+        <p class="member-group-label" style="margin-top:0;">親世代</p>
+        <ul>
+          <li>重人さん（父親）</li>
+          <li>百合子さん（母親）</li>
+        </ul>
+        <p class="member-group-label">成信さんご家族</p>
+        <ul>
+          <li>加名子さん（妻）</li>
+          <li>子ども 3名（大学生2・高校生1）</li>
+        </ul>
+        <p class="member-group-label">幸正さんご家族</p>
+        <ul>
+          <li>桑子さん（妻）</li>
+          <li>子ども 1名（中学生）</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== PURPOSE ===== -->
+  <section class="section purpose-section">
+    <div class="section-number" style="text-align:center;">05</div>
+    <p class="section-label">Message</p>
+    <h2 class="section-title">この会に込める想い</h2>
+    <p class="purpose-quote">
+      幼なじみとその家族、<br>
+      子どもたちが一斉に集い、<br>
+      世代を越えた親睦を図る
+    </p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-logo">富士見会</div>
+    <p>2026年7月11日（土）｜ きじま 戸塚本陣</p>
+    <p style="margin-top:1rem; opacity:0.5;">この企画書は関係者への案内用として作成されました</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
