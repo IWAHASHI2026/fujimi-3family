@@ -32,7 +32,10 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(160deg, var(--navy) 0%, #0f1a30 60%, #1e3a5f 100%);
+    background:
+      linear-gradient(160deg, rgba(26,39,68,0.72) 0%, rgba(15,26,48,0.78) 60%, rgba(30,58,95,0.72) 100%),
+      url('main.jpg') center center / cover no-repeat;
+    background-attachment: scroll, fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -425,7 +428,7 @@
 
   /* ===== Additional Guests Section ===== */
   .guests-section {
-    background: var(--cream);
+    background-color: var(--cream);
   }
 
   .guests-grid {
@@ -563,6 +566,39 @@
     margin-bottom: 0.5rem;
   }
 
+  /* ===== Parallax Background ===== */
+  .parallax-bg {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  .parallax-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.87);
+    z-index: 0;
+  }
+
+  .parallax-bg.cream-overlay::after {
+    background: rgba(250, 246, 239, 0.88);
+  }
+
+  .parallax-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .parallax-bg,
+    .hero {
+      background-attachment: scroll !important;
+    }
+  }
+
   /* ===== Print ===== */
   @media print {
     body { background: #fff; }
@@ -590,7 +626,7 @@
 <div class="page">
 
   <!-- ===== ABOUT ===== -->
-  <section class="section">
+  <section class="section parallax-bg" style="background-image: url('sub1.jpeg')">
     <div class="section-number">01</div>
     <p class="section-label">About</p>
     <h2 class="section-title">趣旨</h2>
@@ -614,7 +650,7 @@
   </div>
 
   <!-- ===== VENUE ===== -->
-  <section class="section">
+  <section class="section parallax-bg" style="background-image: url('sub2.jpeg')">
     <div class="section-number">02</div>
     <p class="section-label">Venue</p>
     <h2 class="section-title">会場</h2>
@@ -640,7 +676,7 @@
   </section>
 
   <!-- ===== MEMBERS ===== -->
-  <section class="section">
+  <section class="section parallax-bg" style="background-image: url('sub3.jpeg')">
     <div class="section-number">03</div>
     <p class="section-label">Members</p>
     <h2 class="section-title">幼なじみメンバー</h2>
@@ -691,7 +727,7 @@
   </section>
 
   <!-- ===== ADDITIONAL GUESTS ===== -->
-  <section class="section guests-section">
+  <section class="section guests-section parallax-bg cream-overlay" style="background-image: url('sub4.jpeg')">
     <div class="section-number">04</div>
     <p class="section-label">Guests</p>
     <h2 class="section-title">ご家族のご参加（出欠未定）</h2>
