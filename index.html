@@ -574,10 +574,8 @@
 
   .parallax-img {
     position: absolute;
-    top: -25%;
     left: 0;
     right: 0;
-    bottom: -25%;
     background-size: cover;
     background-position: center;
     z-index: 0;
@@ -588,12 +586,12 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.78);
     z-index: 1;
   }
 
   .parallax-bg.cream-overlay::after {
-    background: rgba(250, 246, 239, 0.88);
+    background: rgba(250, 246, 239, 0.80);
   }
 
   .parallax-bg > *:not(.parallax-img) {
@@ -820,26 +818,35 @@
 (function() {
   var ticking = false;
   var imgs = document.querySelectorAll('.parallax-img');
+  var data = [];
 
-  function updateParallax() {
-    var viewH = window.innerHeight;
-
+  function initSizes() {
+    data = [];
     for (var i = 0; i < imgs.length; i++) {
       var img = imgs[i];
       var parent = img.parentElement;
-      var rect = parent.getBoundingClientRect();
+      var parentH = parent.offsetHeight;
+      var imgH = parentH * 2.5;
+      var offset = -(imgH - parentH) / 2;
 
-      // progress: 0 = element just entering bottom, 1 = element leaving top
-      var progress = (viewH - rect.top) / (viewH + rect.height);
-      progress = Math.max(0, Math.min(1, progress));
+      img.style.height = imgH + 'px';
+      img.style.top = offset + 'px';
 
-      // Move within the 25% extra space on each side
-      var maxMove = rect.height * 0.25;
-      var move = (progress - 0.5) * 2 * maxMove;
-
-      img.style.transform = 'translateY(' + move + 'px)';
+      data.push({ img: img, parent: parent, maxMove: (imgH - parentH) / 2 });
     }
+  }
 
+  function updateParallax() {
+    var viewH = window.innerHeight;
+    for (var i = 0; i < data.length; i++) {
+      var d = data[i];
+      var rect = d.parent.getBoundingClientRect();
+      var progress = (viewH - rect.top) / (viewH + rect.height);
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+      var move = (progress - 0.5) * 2 * d.maxMove;
+      d.img.style.transform = 'translate3d(0,' + move + 'px,0)';
+    }
     ticking = false;
   }
 
@@ -850,6 +857,12 @@
     }
   });
 
+  window.addEventListener('resize', function() {
+    initSizes();
+    updateParallax();
+  });
+
+  initSizes();
   updateParallax();
 })();
 </script>
