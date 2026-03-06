@@ -319,11 +319,6 @@ def draw_memories_page(c):
 
     y -= row3_h + 20
 
-    # フッターテキスト
-    c.setFillColor(WARM_GRAY)
-    c.setFont(SERIF, 9)
-    c.drawCentredString(W / 2, y, '— あの日の笑顔を、もう一度 —')
-
     c.showPage()
 
 
