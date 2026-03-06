@@ -205,6 +205,147 @@
     font-weight: 700;
   }
 
+  /* ===== Memories Photo Section ===== */
+  .memories-section {
+    background: var(--cream);
+    padding: 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .memories-section { padding: 3rem 1.5rem; }
+  }
+
+  .memories-section .section-number {
+    text-align: center;
+  }
+
+  .memories-section .section-label,
+  .memories-section .section-title {
+    text-align: center;
+  }
+
+  .memories-intro {
+    text-align: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    color: var(--warm-gray);
+    margin-bottom: 2.5rem;
+    line-height: 2;
+  }
+
+  /* Photo grid - masonry-like layout */
+  .memories-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+  }
+
+  .memory-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .memory-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  }
+
+  .memory-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .memory-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Large photo - spans 4 cols */
+  .memory-item.large {
+    grid-column: span 4;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Medium photo - spans 2 cols */
+  .memory-item.medium {
+    grid-column: span 2;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Wide photo - spans 3 cols */
+  .memory-item.wide {
+    grid-column: span 3;
+    aspect-ratio: 3 / 2;
+  }
+
+  .memory-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.2rem 1rem;
+    background: linear-gradient(to top, rgba(26,39,68,0.85) 0%, rgba(26,39,68,0) 100%);
+    color: rgba(255,255,255,0.9);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .memory-item:hover .memory-caption {
+    opacity: 1;
+  }
+
+  /* Photo frame effect */
+  .memory-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  .memories-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    letter-spacing: 0.1em;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .memories-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .memory-item.large {
+      grid-column: span 2;
+    }
+    .memory-item.medium {
+      grid-column: span 1;
+    }
+    .memory-item.wide {
+      grid-column: span 2;
+    }
+    .memory-caption {
+      opacity: 1;
+      font-size: 0.7rem;
+      padding: 1.5rem 0.8rem 0.6rem;
+    }
+  }
+
   /* ===== Venue Section ===== */
   .venue-card {
     background: var(--cream);
@@ -464,7 +605,7 @@
   }
 
   .guest-block ul li::before {
-    content: '—';
+    content: '\2014';
     position: absolute;
     left: 0;
     color: var(--gold-light);
@@ -605,6 +746,7 @@
     .hero { min-height: 60vh; break-after: page; }
     .page { box-shadow: none; }
     .venue-link { border: 1px solid #333; }
+    .memory-caption { opacity: 1; }
   }
 </style>
 </head>
@@ -642,6 +784,47 @@
     </p>
   </section>
 
+  <!-- ===== MEMORIES / PHOTOS ===== -->
+  <section class="memories-section">
+    <div class="section-number">02</div>
+    <p class="section-label">Memories</p>
+    <h2 class="section-title">思い出の写真</h2>
+    <p class="memories-intro">
+      あの頃のわたしたち。<br>
+      富士見ヶ丘で一緒に駆け回った日々。
+    </p>
+
+    <div class="memories-grid">
+      <!-- Row 1: large + medium -->
+      <div class="memory-item large">
+        <img src="IMG_2403.JPG" alt="野原でのファミリーピクニック">
+        <div class="memory-caption">みんなで野原にシートを広げて</div>
+      </div>
+      <div class="memory-item medium">
+        <img src="IMG_2399.JPG" alt="夏の水遊び">
+        <div class="memory-caption">夏の日の水遊び</div>
+      </div>
+
+      <!-- Row 2: wide + wide -->
+      <div class="memory-item wide">
+        <img src="IMG_2400.JPG" alt="桜の下での集合写真">
+        <div class="memory-caption">桜の下で記念撮影</div>
+      </div>
+      <div class="memory-item wide">
+        <img src="IMG_2401.JPG" alt="桜の公園でピクニック">
+        <div class="memory-caption">お花見ピクニック</div>
+      </div>
+
+      <!-- Row 3: full width feature -->
+      <div class="memory-item" style="grid-column: span 6; aspect-ratio: 16 / 7;">
+        <img src="IMG_2402.JPG" alt="公園での子どもたち" style="object-position: center 30%;">
+        <div class="memory-caption">公園で元気いっぱい</div>
+      </div>
+    </div>
+
+    <p class="memories-note">— あの日の笑顔を、もう一度 —</p>
+  </section>
+
   <!-- ===== DATE & TIME ===== -->
   <div class="schedule-strip">
     <p class="section-label">Date &amp; Time</p>
@@ -654,7 +837,7 @@
   <!-- ===== VENUE ===== -->
   <section class="section parallax-bg">
     <div class="parallax-img" style="background-image: url('sub2.jpeg')"></div>
-    <div class="section-number">02</div>
+    <div class="section-number">03</div>
     <p class="section-label">Venue</p>
     <h2 class="section-title">会場</h2>
     <div class="venue-card">
@@ -681,7 +864,7 @@
   <!-- ===== MEMBERS ===== -->
   <section class="section parallax-bg">
     <div class="parallax-img" style="background-image: url('sub3.jpeg')"></div>
-    <div class="section-number">03</div>
+    <div class="section-number">04</div>
     <p class="section-label">Members</p>
     <h2 class="section-title">幼なじみメンバー</h2>
     <p class="section-body" style="margin-bottom:0.5rem;">富士見ヶ丘幼稚園で共に過ごした6名。全員の出席が決定しています。</p>
@@ -733,7 +916,7 @@
   <!-- ===== ADDITIONAL GUESTS ===== -->
   <section class="section guests-section parallax-bg cream-overlay">
     <div class="parallax-img" style="background-image: url('sub4.jpeg')"></div>
-    <div class="section-number">04</div>
+    <div class="section-number">05</div>
     <p class="section-label">Guests</p>
     <h2 class="section-title">ご家族のご参加（出欠未定）</h2>
 
@@ -799,7 +982,7 @@
 
   <!-- ===== PURPOSE ===== -->
   <section class="section purpose-section">
-    <div class="section-number" style="text-align:center;">05</div>
+    <div class="section-number" style="text-align:center;">06</div>
     <p class="section-label">Message</p>
     <h2 class="section-title">この会に込める想い</h2>
     <p class="purpose-quote">
